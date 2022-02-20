@@ -6,7 +6,7 @@ import os
 
 def applyFilter(image):
     # setting the size of the minimum filter to be larger than the nuclei
-    size  = 25
+    size  = 45
 
     minimum_trib = ndimage.minimum_filter(image, size)
     orig_sub_min = image - minimum_trib
@@ -99,7 +99,7 @@ ax1.imshow(pic, cmap='gray')
 ax1.set_title('Original')
 
 plt.show()
-plt.savefig('topHatFitIndividualImages.png')
+#plt.savefig('topHatFitIndividualImages.png')
 
 
 '''

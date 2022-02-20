@@ -1,34 +1,37 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+from PIL import Image
 from scipy import ndimage
 import os
+from skimage import filters
 
 def applyFilter(image):
-    # setting the size of the minimum filter to be larger than the nuclei
-    size  = 5
 
-    minimum_trib = ndimage.minimum_filter(image, size)
-    orig_sub_min = image - minimum_trib
+    # the smaller Gaussian is just there to remove
+    # noise so it can be just a few pixels
+    small_gaussian = filters.gaussian(image, sigma = 0)
+
+    # the larger Gaussian has to be bigger than our largest
+    # object, which we can measure or make an educated guess
+    large_gaussian = filters.gaussian(image, sigma = 7)
+
+    # now we subtract the large gaussian from the small one
+    dog_tribolium = small_gaussian - large_gaussian
     '''
-    # visualising the result
-    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize =(20,20))
+    # visualising the results
+    fig, (ax1,ax12, ax2, ax3) = plt.subplots(1, 4, figsize =(20,20))
     ax1.imshow(image, cmap = 'gray')
     ax1.set_title('Original')
-    ax2.imshow(minimum_trib, cmap = 'gray')
-    ax2.set_title('Minimum')
-    ax3.imshow(orig_sub_min, cmap = 'gray')
-    ax3.set_title('Original - Minimum')
+    ax12.imshow(small_gaussian, cmap = 'gray')
+    ax12.set_title('smallgaussian')
+    ax2.imshow(large_gaussian, cmap = 'gray')
+    ax2.set_title('Large Gaussian')
+    ax3.imshow(dog_tribolium, cmap = 'gray')
+    ax3.set_title('Subtractlarge from small gaussian Image')
     plt.show()
     '''
-    return minimum_trib
-
-
-
-
-
-
-
+    return dog_tribolium
 
 files = []
 file_list = os.listdir(r"/Users/oliviaseidel/Downloads/drive-download-20220220T155705Z-001")
@@ -96,18 +99,15 @@ for i in range(1, 10):
 pic = np.array(combinedfullImg)
 fig, (ax1) = plt.subplots(1, 1, figsize=(20, 20))
 ax1.imshow(pic, cmap='gray')
-ax1.set_title('Original')
+ax1.set_title('Gaussian Filter')
 
 plt.show()
-#plt.savefig('topHatFitIndividualImages.png')
-
-
+im = Image.fromarray(combinedfullImg)
+im = im.convert("L")
+im.save("biggaussian7sigma.png")
 '''
-fig = plt.figure(figsize=(1, 1), dpi=250)
-gs = fig.add_gridspec(1, 1, hspace=0, wspace=0)
-axes = gs.subplots(sharex='col', sharey='row')
-axes.imshow(pic)
-
-plt.show()
+a_file = open("biggaussian7sigma.txt", "w")
+for row in pic:
+    np.savetxt(a_file, row)
 '''
-
+#plt.savefig('GaussianFitIndividualImages.png')

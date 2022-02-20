@@ -21,14 +21,25 @@ size  = 25
 minimum_trib = ndimage.minimum_filter(image2, size)
 orig_sub_min = image2 - minimum_trib
 
+
+
+size2  = 45
+
+minimum_trib2 = ndimage.minimum_filter(image2, size2)
+orig_sub_min2 = image2 - minimum_trib2
+
 # visualising the result
-fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize =(20,20))
+fig, (ax1, ax2, ax3, ax4, ax5) = plt.subplots(1, 5, figsize =(20,20))
 ax1.imshow(image2, cmap = 'gray')
 ax1.set_title('Original')
 ax2.imshow(minimum_trib, cmap = 'gray')
 ax2.set_title('Minimum')
 ax3.imshow(orig_sub_min, cmap = 'gray')
 ax3.set_title('Original - Minimum')
+ax4.imshow(minimum_trib2, cmap = 'gray')
+ax4.set_title('Minimum')
+ax5.imshow(orig_sub_min2, cmap = 'gray')
+ax5.set_title('Original - Minimum')
 plt.show()
 
 
