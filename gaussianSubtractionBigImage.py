@@ -17,7 +17,7 @@ def applyFilter(image):
     large_gaussian = filters.gaussian(image, sigma = 7)
 
     # now we subtract the large gaussian from the small one
-    dog_tribolium = small_gaussian - large_gaussian
+    endimage = small_gaussian - large_gaussian
     '''
     # visualising the results
     fig, (ax1,ax12, ax2, ax3) = plt.subplots(1, 4, figsize =(20,20))
@@ -27,11 +27,11 @@ def applyFilter(image):
     ax12.set_title('smallgaussian')
     ax2.imshow(large_gaussian, cmap = 'gray')
     ax2.set_title('Large Gaussian')
-    ax3.imshow(dog_tribolium, cmap = 'gray')
+    ax3.imshow(endgaussuan, cmap = 'gray')
     ax3.set_title('Subtractlarge from small gaussian Image')
     plt.show()
     '''
-    return dog_tribolium
+    return endimage
 
 files = []
 file_list = os.listdir(r"/Users/oliviaseidel/Downloads/drive-download-20220220T155705Z-001")

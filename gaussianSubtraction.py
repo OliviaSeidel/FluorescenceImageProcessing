@@ -21,8 +21,8 @@ small_gaussian = filters.gaussian(tribolium, sigma = 0)
 large_gaussian = filters.gaussian(tribolium, sigma = 20)
 
 # now we subtract the large gaussian from the small one
-dog_tribolium = small_gaussian - large_gaussian
-divideGaussian = dog_tribolium/large_gaussian+small_gaussian
+endImage = small_gaussian - large_gaussian
+divideGaussian = endImage/large_gaussian+small_gaussian
 #M =255*max(np.sqrt(divideGaussian * divideGaussian))
 #O = 255 * (divideGaussian + M) / (2 * M)
 
